@@ -1,0 +1,20 @@
+
+{
+  "name": "Counter Strike Mini Offline",
+  "short_name": "CS Mini",
+  "description": "بازی تیراندازی اول‌شخص آفلاین",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#101820",
+  "theme_color": "#101820",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
