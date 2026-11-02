@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#101820">
+<meta name="description" content="Counter Strike Mini Offline">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Counter Strike Mini</title>
+<style>
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; width: 100%; height: 100%;
+  overflow: hidden; background: #101820;
+  color: white; font-family: system-ui, sans-serif;
+  touch-action: none;
+}
+#game { width: 100%; height: 100%; display: block; }
+#hud { position: fixed; inset: 0; pointer-events: none; }
+.top {
+  display: flex; justify-content: space-between;
+  padding: 12px; gap: 8px; font-weight: bold;
+}
+.pill {
+  background: #071018bb; padding: 8px 12px;
+  border: 1px solid #ffffff30; border-radius: 10px;
+}
+#cross {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%); font-size: 28px;
+}
+#message {
+  position: absolute; top: 20%; left: 50%;
+  transform: translateX(-50%); font-size: 20px;
+}
+#bottom {
+  position: absolute; bottom: 10px; left: 50%;
+  transform: translateX(-50%); text-align: center;
+  width: 95%; font-size: 12px;
+}
+#controls { position: fixed; inset: 0; pointer-events: none; }
+.pad {
+  position: absolute; bottom: 25px; left: 18px;
+  display: grid; grid-template-columns: repeat(3,48px);
+  grid-template-rows: repeat(2,48px); gap: 5px;
+  pointer-events: auto;
+}
+.btn {
+  background: #101820bb; color: white;
+  border: 1px solid #ffffff55; border-radius: 12px;
+  font-size: 17px; touch-action: none;
+}
+.up { grid-column: 2; }
+.left { grid-column: 1; grid-row: 2; }
+.down { grid-column: 2; grid-row: 2; }
+.right { grid-column: 3; grid-row: 2; }
+.actions {
+  position: absolute; bottom: 28px; right: 18px;
+  display: flex; gap: 9px; pointer-events: auto;
+}
+.actions button {
+  width: 64px; height: 64px; border-radius: 50%;
+  font-size: 12px; font-weight: bold;
+}
+#start {
+  position: fixed; inset: 0; background: #071018ee;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px; text-align: center;
+}
+.panel {
+  max-width: 420px; background: #17232b;
+  border: 1px solid #ffffff30; border-radius: 18px;
+  padding: 24px;
+}
+.panel p { line-height: 1.8; color: #cbd5dc; font-size: 14px; }
+#play {
+  background: #d5a642; color: #171717; border: 0;
+  border-radius: 12px; padding: 13px 28px;
+  font-size: 16px; font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<canvas id="game"></canvas>
+
+<div id="hud">
+  <div class="top">
+    <div class="pill">HP: <span id="hp">100</span></div>
+    <div class="pill">Kills: <span id="kills">0</span></div>
+    <div class="pill">Ammo: <span id="ammo">12</span></div>
+  </div>
+  <div id="cross">+</div>
+  <div id="message"></div>
+  <div id="bottom">حرکت با دکمه‌های چپ · نگاه با کشیدن انگشت · شلیک با FIRE</div>
+</div>
+
+<div id="controls">
+  <div class="pad">
+    <button class="btn up" data-move="forward">▲</button>
+    <button class="btn left" data-move="left">◀</button>
+    <button class="btn down" data-move="back">▼</button>
+    <button class="btn right" data-move="right">▶</button>
+  </div>
+  <div class="actions">
+    <button class="btn" id="reload">RELOAD</button>
+    <button class="btn" id="fire">FIRE</button>
+  </div>
+</div>
+
+<div id="start">
+  <div class="panel">
+    <h1>Counter Strike Mini</h1>
+    <p>
+      بازی تیراندازی اول‌شخص آفلاین<br>
+      با دشمنان و میدان نبرد تمرینی
+    </p>
+    <button id="play">شروع بازی</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js');
+  });
+}
+</script>
+</body>
+</html>
